@@ -84,12 +84,9 @@ def main():
         # 2. Obtener Nombre del producto (Concepto)
         nombre_div = item.find('div', class_='order-item-content-info-name')
         if nombre_div and nombre_div.find('span'):
-            concepto = f"Pedido: {nombre_div.find('span').get_text(strip=True)}"
-            # Acortar concepto si es muy largo para que el CSV se lea bien
-            if len(concepto) > 80:
-                concepto = concepto[:77] + "..."
+            concepto = nombre_div.find('span').get_text(strip=True)[:16]
         else:
-            concepto = "Pedido AliExpress (Sin nombre detectado)"
+            concepto = "Sin nombre"
 
         # 3. Obtener Precio
         precio_div = item.find('span', class_='order-item-content-opt-price-total')
@@ -109,7 +106,7 @@ def main():
         datos_csv.append({
             'Fecha': fecha_formateada,
             'Proveedor': 'AliExpress Europa S.L.',
-            'Importe': str(importe).replace('.', ','), # Formato Excel europeo
+            'Importe': f"{importe:.2f}",
             'Concepto': concepto,
             'Referencia': ref_pedido,
             'Metodo': 'Tarjeta'
@@ -132,7 +129,7 @@ def main():
             writer.writerow({
                 'Fecha': f"Total {mes}",
                 'Proveedor': '',
-                'Importe': f"{total:.2f}".replace('.', ','),
+                'Importe': f"{total:.2f}",
                 'Concepto': 'Gasto total del mes',
                 'Referencia': '',
                 'Metodo': ''

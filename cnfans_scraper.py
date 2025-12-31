@@ -431,7 +431,7 @@ def build_expense_rows(orders: list[dict]) -> list[dict]:
             continue
 
         hoodie_name = pick_hoodie_name(o.get("products", []))
-        concepto = f"pedido {hoodie_name}"
+        concepto = hoodie_name[:16]
 
         paid = compute_paid_amount(o)
 
@@ -513,7 +513,7 @@ def save_expenses_to_csv(expense_rows: list[dict], filename: str = OUTPUT_CSV):
             fecha_str = fecha.strftime("%d-%m-%Y") if isinstance(fecha, date) else ""
 
             importe = r["Importe pagado"]
-            importe_str = format_money_es(float(importe)) if importe != "" else ""
+            importe_str = f"{float(importe):.2f}" if importe != "" else ""
 
             writer.writerow(
                 {
