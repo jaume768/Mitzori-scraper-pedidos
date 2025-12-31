@@ -13,7 +13,8 @@ ORDERS_URL = "https://cnfans.com/my-account/orders"
 # RANGO DE FECHAS (inclusive)
 START_DATE_STR = "09-12-2025"  # dd-mm-YYYY
 START_DATE = datetime.strptime(START_DATE_STR, "%d-%m-%Y").date()
-END_DATE = date.today()
+END_DATE_STR = "31-12-2025"
+END_DATE = datetime.strptime(END_DATE_STR, "%d-%m-%Y").date()
 
 # Salida
 OUTPUT_CSV = "cnfans_pedidos_gastos.csv"
