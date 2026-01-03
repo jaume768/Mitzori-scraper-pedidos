@@ -232,7 +232,7 @@ def _dividir_y_generar_pdfs(encabezado, filas_datos, num_partes, metodo, prefijo
     for i, parte in enumerate(partes, 1):
         importe_parte = sum(extraer_importe(fila) for fila in parte)
         pdf_filename = f"{prefijo_salida}_{i}_de_{len(partes)}.pdf"
-        _generar_pdf_con_datos(encabezado, parte, pdf_filename, f"TOTAL PARTE {i} de {len(partes)}", importe_parte)
+        _generar_pdf_con_datos(encabezado, parte, pdf_filename, f"TOTAL", importe_parte)
         print(f"✓ {pdf_filename} - {len(parte)} registros - {importe_parte:.2f} €")
 
 
